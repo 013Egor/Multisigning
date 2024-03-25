@@ -1,0 +1,20 @@
+{
+  "name": "eleptic_curve",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "bignumber.js": "^9.1.2",
+    "dotenv": "^16.4.5",
+    "hash.js": "^1.1.7",
+    "js-sha3": "^0.9.3",
+    "rlp": "^3.0.0"
+  },
+  "type": "module"
+}
