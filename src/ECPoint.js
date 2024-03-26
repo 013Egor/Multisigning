@@ -39,12 +39,15 @@ export default class ECPoint {
 				currentPoint = currentPoint.add(currentPoint);
 				n = n.plus(n);
 			} else {
-				let greatestRelevantPoint = usedPoints.reduce((memo, value) =>
-					n.plus(value.n).isLessThanOrEqualTo(times) &&
-					!value.point.x.isEqualTo(currentPoint.x)
-						? value
-						: memo
-				);
+				let greatestRelevantPoint = usedPoints.at(0);
+				usedPoints.forEach((value) => {
+					if (
+						n.plus(value.n).isLessThanOrEqualTo(times) &&
+						!value.point.x.isEqualTo(currentPoint.x)
+					) {
+						greatestRelevantPoint = value;
+					}
+				});
 				currentPoint = currentPoint.add(greatestRelevantPoint.point);
 				n = n.plus(greatestRelevantPoint.n);
 			}
