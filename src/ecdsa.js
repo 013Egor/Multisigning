@@ -11,23 +11,33 @@ export const GPoint = getSecp256k1Point(generatorPoint.x, generatorPoint.y);
 export function signMessage(message, privateKey) {
 	let k;
 	let r;
+	let s;
 
 	do {
-		k = getLargeRandom();
+		do {
+			k = getLargeRandom();
 
-		const R = GPoint.multiply(k);
-		r = getModulo(R.x, generatorPoint.orderN);
-	} while (r.isEqualTo(0));
+			const R = GPoint.multiply(k);
+			r = getModulo(R.x, generatorPoint.orderN);
+		} while (r.isEqualTo(0));
 
-	const kInverse = getModulo(
-		findInverse(k, generatorPoint.orderN),
-		generatorPoint.orderN
-	);
+		const kInverse = getModulo(
+			findInverse(k, generatorPoint.orderN),
+			generatorPoint.orderN
+		);
 
-	const s = getModulo(
-		kInverse.multipliedBy(getBN(message, 16).plus(getModulo(r.multipliedBy(privateKey, 16), generatorPoint.orderN))),
-		generatorPoint.orderN
-	);
+		s = getModulo(
+			kInverse.multipliedBy(
+				getBN(message, 16).plus(
+					getModulo(
+						r.multipliedBy(privateKey, 16),
+						generatorPoint.orderN
+					)
+				)
+			),
+			generatorPoint.orderN
+		);
+	} while (s.isGreaterThan(generatorPoint.orderN.dividedBy(2)));
 
 	return {
 		s: "0x" + s.toString(16),

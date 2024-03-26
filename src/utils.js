@@ -53,14 +53,14 @@ export function getHexFromBytes(encoded) {
 	return "0x" + result;
 }
 
-export function gerEth(value) {
-	const eth = getBN('1000000000000000000');
-	return '0x' + eth.multipliedBy(value).toString(16);
+export function getEth(value) {
+	const eth = getBN("1000000000000000000");
+	return "0x" + eth.multipliedBy(value).toString(16);
 }
 
-export function gerGwei(value) {
-	const eth = getBN('1000000000');
-	return '0x' + eth.multipliedBy(value).toString(16);
+export function getGwei(value) {
+	const eth = getBN("1000000000");
+	return "0x" + eth.multipliedBy(value).toString(16);
 }
 
 export async function getNextNonce(address) {
@@ -78,7 +78,7 @@ export async function getNextNonce(address) {
 		return axiosResult.data.result;
 	}
 
-	throw new Error('Didn\'t get nonce');
+	throw new Error("Didn't get nonce");
 }
 export async function sendTransaction(signedTransaction) {
 	const rpcEndpoint = constants.RPC_URL;
@@ -93,7 +93,7 @@ export async function sendTransaction(signedTransaction) {
 	const axiosResult = await axios.post(rpcEndpoint, requestData);
 
 	if (axiosResult.data.error) {
-		console.log(axiosResult.data.error)
+		console.log(axiosResult.data.error);
 		throw new Error(axiosResult.data.error);
 	}
 }
